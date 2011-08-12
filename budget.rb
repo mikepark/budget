@@ -37,10 +37,12 @@ class Budget
           balance += event.today(date)
         end
 
-        delta = date.yday - @first_payday.yday
-        if ( 0 == delta.remainder(14) ) 
-          balance += @pay 
-          puts "pay #{@pay}"
+        if ( @first_payday ) then
+          delta = date.yday - @first_payday.yday
+          if ( 0 == delta.remainder(14) ) 
+            balance += @pay 
+            puts "pay #{@pay}"
+          end
         end
         if (last_balance != balance)
           puts [date.to_s, balance.to_s].join(' : ')
