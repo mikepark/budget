@@ -46,7 +46,7 @@ class Budget
         end
         if (last_balance != balance)
           puts [date.to_s, balance.to_s].join(' : ')
-          f.puts [365*(date.year-2000)+date.yday, balance.to_s].join(' , ')+" % oct"        
+          f.puts [date.jd-Date.today.jd, balance.to_s].join(' , ')+" % oct"        
         end
         date = date.next
       end
