@@ -28,7 +28,8 @@ class Budget
   end
   def future(days)
     File.open('budget.m','w') do |f|
-      f.puts "#!/usr/bin/env octave\ndb=["
+      f.puts "#!/usr/bin/env octave"
+      f.puts "db=["
       date = Date.today
       balance = @balance
       days.times do |day|
@@ -50,8 +51,11 @@ class Budget
         end
         date = date.next
       end
-      f.puts "];\nplot(db(:,1),db(:,2))\nprint -deps budget.eps"
+      f.puts "];"
+      f.puts "plot(db(:,1),db(:,2))"
+      f.puts "print -deps budget.eps"
+      f.puts "system('epstopdf budget.eps')"      
     end
-    `octave budget.m`
+    `octave -q budget.m`
   end
 end
