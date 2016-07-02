@@ -27,6 +27,7 @@ class Budget
     @pay = amount
   end
   def future(days)
+    File.open('budget.dat','w') do |tec|
     File.open('budget.m','w') do |f|
       f.puts "#!/usr/bin/env octave"
       f.puts "db=["
@@ -48,6 +49,7 @@ class Budget
         if (last_balance != balance)
           puts [date.to_s, balance.to_s].join(' : ')
           f.puts [date.jd-Date.today.jd, balance.to_s].join(' , ')+" % oct"        
+          tec.puts [date.jd-Date.today.jd, balance.to_s].join(' ')
         end
         date = date.next
       end
@@ -55,6 +57,7 @@ class Budget
       f.puts "plot(db(:,1),db(:,2))"
       f.puts "print -deps budget.eps"
       f.puts "system('epstopdf budget.eps')"      
+    end
     end
     `octave -q budget.m`
   end
