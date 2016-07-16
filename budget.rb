@@ -39,8 +39,8 @@ class Budget
   def biweekly_from(date, amount, desc)
     @paydays << Payday.new(date, amount, desc)
   end
-  def future(days)
-    File.open('budget.dat','w') do |tec|
+  def future(days, dat_file_name = 'budget.dat')
+    File.open(dat_file_name,'w') do |tec|
       File.open('budget.m','w') do |f|
         f.puts "#!/usr/bin/env octave"
         f.puts "db=["
